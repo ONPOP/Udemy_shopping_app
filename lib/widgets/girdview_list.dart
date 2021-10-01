@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -5,10 +7,13 @@ import '../providers/products.dart';
 import './product_item.dart';
 
 class GridViewWidget extends StatelessWidget {
+  final bool isFav;
+  GridViewWidget(this.isFav);
+
   @override
   Widget build(BuildContext context) {
     final products = Provider.of<Products>(context);
-    final productList = products.items;
+    final productList = isFav? products.favoriteItems : products.items;
     return GridView.builder(
       padding: const EdgeInsets.all(10.0),
       itemCount: productList.length,
