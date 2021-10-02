@@ -15,19 +15,27 @@ class CartItem {
 }
 
 class Cart with ChangeNotifier {
-  late Map<String, CartItem> _items = {};
+  Map<String, CartItem> _items = {};
 
   Map<String, CartItem> get items {
     //List 형식이 아니기 때문에 [] 사용 X!!
-    return {...items};
+    return {..._items};
   }
 
-
+  
   //notifyListeners를 설정하지 않는 이유는 
   //_items가 바뀌더라도 notifyListeners를 설정하지 않는 이유와 동일
   //즉 itemCount 내부에서는 change하지 않는다!
   int get itemCount {
     return _items.length;
+  }
+
+  double get totalAmount {
+    var total = 0.0;
+    _items.forEach((key, cartItem) {
+      total += (cartItem.price * cartItem.quantity);
+    });
+    return total;
   }
 
   void addItem(
@@ -55,6 +63,13 @@ class Cart with ChangeNotifier {
             quantity: 1),
       );
     }
+    print(_items.keys.toString());
     notifyListeners();
   }
+
+  void removeItem (String productId){
+    _items.remove(productId);
+    notifyListeners();
+  }
+
 }

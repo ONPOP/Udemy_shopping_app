@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:udemy_shopping_app/screens/cart_screen.dart';
 
 import '../widgets/girdview_list.dart';
 import '../widgets/badge.dart';
@@ -55,7 +56,9 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
                 child: ch!,
                 value: cart.itemCount.toString()),
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(CartScreen.routeName);
+                  },
                   icon: Icon(Icons.shopping_cart),
                 ),
           ),
